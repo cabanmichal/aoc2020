@@ -14,10 +14,10 @@ def main() -> None:
     with open(input_file_name, "w"):
         pass
 
-    with open(script_file_name, "w", encoding="utf-8") as scriptifle:
-        scriptifle.write(f"\n\nINPUT = {input_file_name!r}\n\n\n")
-        scriptifle.write("def main() -> None:\n    pass\n\n\n")
-        scriptifle.write('if __name__ == "__main__":\n    main()\n')
+    with open(script_file_name, "w", encoding="utf-8") as scriptfile:
+        scriptfile.write(f"\n\nINPUT = {input_file_name!r}\n\n\n")
+        scriptfile.write("def main() -> None:\n    pass\n\n\n")
+        scriptfile.write('if __name__ == "__main__":\n    main()\n')
 
 
 if __name__ == "__main__":
