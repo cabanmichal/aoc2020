@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""https://adventofcode.com/2020/day/1"""
 from typing import List
 import bisect
 import math

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""https://adventofcode.com/2020/day/2"""
 from dataclasses import dataclass
 from typing import Type, TypeVar
 import re
