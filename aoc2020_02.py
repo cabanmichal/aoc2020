@@ -4,8 +4,9 @@ from dataclasses import dataclass
 from typing import Type, TypeVar
 import re
 
-T = TypeVar("T", bound="Record")
+
 INPUT = "aoc2020_02_input.txt"
+T = TypeVar("T", bound="Record")
 
 _pattern = re.compile(r"(\d+)-(\d+) (.): (.+)")
 
