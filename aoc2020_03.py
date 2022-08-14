@@ -21,7 +21,7 @@ def count_trees_in_way(terrain_map_lines: Iterable[str], slope: Tuple[int, int])
     dx, dy = slope
 
     if dy <= 0 or dx <= 0:
-        raise ValueError(f"Slope must be higher than 0 ({slope})")
+        raise ValueError(f"Slope components must be higher than 0 ({slope})")
 
     for idx, line in enumerate(terrain_map_lines):
         if idx == 0:
