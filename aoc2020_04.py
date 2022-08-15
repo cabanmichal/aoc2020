@@ -67,19 +67,15 @@ def pid_valid(pid: str) -> bool:
 
 
 def is_valid_passport_strict(document: Dict[str, str]) -> bool:
-    if not is_valid_passport(document):
-        return False
-
-    return all(
-        [
-            byr_valid(document["byr"]),
-            iyr_valid(document["iyr"]),
-            eyr_valid(document["eyr"]),
-            hgt_valid(document["hgt"]),
-            hcl_valid(document["hcl"]),
-            ecl_valid(document["ecl"]),
-            pid_valid(document["pid"]),
-        ]
+    return (
+        is_valid_passport(document)
+        and byr_valid(document["byr"])
+        and iyr_valid(document["iyr"])
+        and eyr_valid(document["eyr"])
+        and hgt_valid(document["hgt"])
+        and hcl_valid(document["hcl"])
+        and ecl_valid(document["ecl"])
+        and pid_valid(document["pid"])
     )
 
 
