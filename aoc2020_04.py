@@ -112,7 +112,7 @@ def main() -> None:
         if is_valid_passport_strict(document):
             valid_count_2 += 1
 
-    print(f"Valid documents: {valid_count_1} / {valid_count_2}")
+    print(f"Valid documents: {valid_count_1} / {valid_count_2}")  # 235 / 194
 
 
 if __name__ == "__main__":

@@ -51,7 +51,7 @@ def check_password_file(filename: str) -> None:
             if record.is_valid_policy_2():
                 valid_count_2 += 1
 
-    print(f"Valid passwords: {valid_count_1} / {valid_count_2}")
+    print(f"Valid passwords: {valid_count_1} / {valid_count_2}")  # 469 / 267
 
 
 def main() -> None:

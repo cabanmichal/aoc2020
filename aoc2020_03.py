@@ -43,10 +43,10 @@ def main() -> None:
         count = count_trees_in_way(terrain_map_lines, slope)
         trees.append(count)
         if slope == SLOPE:
-            print(f"Encountered trees: {count}")
+            print(f"Encountered trees: {count}")  # 220
 
     product = math.prod(trees)
-    print(f"Product of trees for slopes: {product} ({trees})")
+    print(f"Product of trees for slopes: {product} ({trees})")  # 2138320800
 
 
 if __name__ == "__main__":

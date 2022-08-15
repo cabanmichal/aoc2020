@@ -50,10 +50,10 @@ def main() -> None:
     numbers = sorted(load_entries(report_file=INPUT))
 
     entries = find_n_entries(numbers, 2, SUM)
-    print("Found entries:", entries, math.prod(entries))
+    print("Found entries:", entries, math.prod(entries))  # 100419
 
     entries = find_n_entries(numbers, 3, SUM)
-    print("Found entries:", entries, math.prod(entries))
+    print("Found entries:", entries, math.prod(entries))  # 265253940
 
 
 if __name__ == "__main__":
