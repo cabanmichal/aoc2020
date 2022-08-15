@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """https://adventofcode.com/2020/day/3"""
-from typing import Tuple, Iterable
 import math
-
+from typing import Iterable, Tuple
 
 INPUT = "aoc2020_03_input.txt"
 TREE = "#"

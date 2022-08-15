@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """https://adventofcode.com/2020/day/2"""
+import re
 from dataclasses import dataclass
 from typing import Type, TypeVar
-import re
-
 
 INPUT = "aoc2020_02_input.txt"
 T = TypeVar("T", bound="Record")

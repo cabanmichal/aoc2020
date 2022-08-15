@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """https://adventofcode.com/2020/day/4"""
-from typing import Dict, List
 import re
-
+from typing import Dict, List
 
 INPUT = "aoc2020_04_input.txt"
 PASSPORT_FIELDS = {

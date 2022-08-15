@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """https://adventofcode.com/2020/day/1"""
-from typing import List
 import bisect
 import math
-
+from typing import List
 
 INPUT = "aoc2020_01_input.txt"
 SUM = 2020
