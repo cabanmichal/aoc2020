@@ -37,7 +37,7 @@ def find_contiguous_set(numbers: List[int], value: int) -> List[int]:
 
 def main() -> None:
     with open(INPUT, "rt", encoding="utf-8") as infile:
-        numbers = [int(number) for number in infile.readlines()]
+        numbers = [int(number) for number in infile]
 
     error = find_error(numbers, PREAMBLE)
     contiguous_set = find_contiguous_set(numbers, error)
