@@ -36,8 +36,8 @@ def build_graph(rules: List[str]) -> Dict[str, Bag]:
 
         for match in matches:
             amount = int(match.group("amount"))
-            sub_bug_name = match.group("sub_bag")
-            sub_bag = graph.setdefault(sub_bug_name, Bag(sub_bug_name))
+            sub_bag_name = match.group("sub_bag")
+            sub_bag = graph.setdefault(sub_bag_name, Bag(sub_bag_name))
             bag.add_child(sub_bag, amount)
             sub_bag.add_parent(bag)
 
