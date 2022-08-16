@@ -2,29 +2,13 @@
 """https://adventofcode.com/2020/day/7"""
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
 
 INPUT = "aoc2020_07_input.txt"
-
-RULES = """
-light red bags contain 1 bright white bag, 2 muted yellow bags.
-dark orange bags contain 3 bright white bags, 4 muted yellow bags.
-bright white bags contain 1 shiny gold bag.
-muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
-shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
-dark olive bags contain 3 faded blue bags, 4 dotted black bags.
-vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
-faded blue bags contain no other bags.
-dotted black bags contain no other bags.
-""".strip().splitlines(
-    keepends=False
-)
-
-
 _rule_pattern = re.compile(
     r"""
-        ^ (?P<bag>.+?)\ bag                         # first bag
-        | (?P<capacity>\d+)\ (?P<sub_bag>.+?)\ bag  # bags it contains
+        ^ (?P<bag>.+?)\ bag                       # first bag
+        | (?P<amount>\d+)\ (?P<sub_bag>.+?)\ bag  # bags it contains
     """,
     re.VERBOSE,
 )
@@ -39,11 +23,11 @@ class Bag:
     def add_parent(self, bag: "Bag") -> None:
         self.parents.append(bag)
 
-    def add_child(self, bag: "Bag", capacity: int) -> None:
-        self.children.append((bag, capacity))
+    def add_child(self, bag: "Bag", amount: int) -> None:
+        self.children.append((bag, amount))
 
 
-def build_relationship_graph(rules: List[str]) -> Dict[str, Bag]:
+def build_graph(rules: List[str]) -> Dict[str, Bag]:
     graph: Dict[str, Bag] = {}
     for rule in rules:
         matches = _rule_pattern.finditer(rule)
@@ -51,46 +35,43 @@ def build_relationship_graph(rules: List[str]) -> Dict[str, Bag]:
         bag = graph.setdefault(bag_name, Bag(bag_name))
 
         for match in matches:
-            capacity = int(match.group("capacity"))
+            amount = int(match.group("amount"))
             sub_bug_name = match.group("sub_bag")
             sub_bag = graph.setdefault(sub_bug_name, Bag(sub_bug_name))
-            bag.add_child(sub_bag, capacity)
+            bag.add_child(sub_bag, amount)
             sub_bag.add_parent(bag)
 
     return graph
 
 
 def count_bags_that_can_contain_bag(graph: Dict[str, Bag], bag_name: str) -> int:
-    bags = set()
-
-    def traverse(bag: Bag) -> None:
+    def traverse(bag: Bag) -> Set[str]:
+        bags = {bag.name}
         for parent in bag.parents:
-            bags.add(parent.name)
-            traverse(parent)
+            bags.update(traverse(parent))
+        return bags
 
-    traverse(graph[bag_name])
-
-    return len(bags)
+    return len(traverse(graph[bag_name])) - 1
 
 
 def count_bags_needed(graph: Dict[str, Bag], bag_name: str) -> int:
-    def traverse(bag: Bag, count: int = 1) -> int:
+    def traverse(bag: Bag) -> int:
+        count = 1
         for child, num in bag.children:
-            count += traverse(child, count + num)
-
+            count += num * traverse(child)
         return count
 
-    return traverse(graph[bag_name])
+    return traverse(graph[bag_name]) - 1
 
 
 def main() -> None:
-    graph = build_relationship_graph(RULES)
-    # with open(INPUT, "rt", encoding="utf-8") as infile:
-    #     graph = build_relationship_graph(infile.readlines())
-    count = count_bags_that_can_contain_bag(graph, "shiny gold")
-    print(count)
-    count = count_bags_needed(graph, "shiny gold")
-    print(count)
+    with open(INPUT, "rt", encoding="utf-8") as infile:
+        graph = build_graph(infile.readlines())
+
+    bag_name = "shiny gold"
+    count_can_contain = count_bags_that_can_contain_bag(graph, bag_name)
+    count_needed = count_bags_needed(graph, bag_name)
+    print(f"Numbers of bags: {count_can_contain} / {count_needed}")  # 208 / 1664
 
 
 if __name__ == "__main__":
