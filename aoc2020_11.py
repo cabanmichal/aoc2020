@@ -51,8 +51,7 @@ class WaitingArea:
                     counter += 1
         return counter
 
-    def _adjacent_coordinates(self, row: int, column: int) -> List[Tuple[int, int]]:
-        adjacent = []
+    def _adjacent_coordinates(self, row: int, column: int) -> Iterator[Tuple[int, int]]:
         for dr in range(-1, 2):
             for dc in range(-1, 2):
                 if dr == 0 and dc == 0:
@@ -60,8 +59,7 @@ class WaitingArea:
                 r = row + dr
                 c = column + dc
                 if 0 <= r < self.height and 0 <= c < self.width:
-                    adjacent.append((r, c))
-        return adjacent
+                    yield r, c
 
     def _adjacent_counter(self, row: int, column: int) -> Dict[str, int]:
         return Counter(
