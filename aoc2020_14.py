@@ -2,14 +2,14 @@
 """https://adventofcode.com/2020/day/14"""
 import itertools
 import re
-from typing import Dict, List, NamedTuple, Optional, cast
+from typing import Dict, List, NamedTuple, cast
 
 INPUT = "aoc2020_14_input.txt"
 
 
 class Instruction(NamedTuple):
     operation: str
-    address: Optional[int]
+    address: int | None
     value: str | int
 
 
