@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """--- Day 10: Adapter Array ---
 https://adventofcode.com/2020/day/10"""
+
 import itertools
 import math
 from collections import defaultdict
-from typing import Dict, Iterator, List
+from typing import Iterator
 
 INPUT = "aoc2020_10_input.txt"
 
 
-def count_differences(adapters: List[int]) -> Dict[int, int]:
-    differences: Dict[int, int] = defaultdict(int)
+def count_differences(adapters: list[int]) -> dict[int, int]:
+    differences: dict[int, int] = defaultdict(int)
     last_adapter = adapters[0]
     for adapter in adapters[1:]:
         difference = adapter - last_adapter
@@ -21,7 +22,7 @@ def count_differences(adapters: List[int]) -> Dict[int, int]:
     return differences
 
 
-def droppable_adapters(adapters: List[int]) -> Iterator[List[int]]:
+def droppable_adapters(adapters: list[int]) -> Iterator[list[int]]:
     start = 0
     end = 2
     group = []
@@ -38,13 +39,13 @@ def droppable_adapters(adapters: List[int]) -> Iterator[List[int]]:
         yield group
 
 
-def adapter_configurations(adapters: List[int]) -> Iterator[List[int]]:
+def adapter_configurations(adapters: list[int]) -> Iterator[list[int]]:
     switches = [0, 1]
     for configuration in itertools.product(switches, repeat=len(adapters)):
         yield list(itertools.compress(adapters, configuration))
 
 
-def can_drop(adapters: List[int], to_drop: List[int]) -> bool:
+def can_drop(adapters: list[int], to_drop: list[int]) -> bool:
     if not to_drop:
         return True
 
@@ -65,7 +66,7 @@ def can_drop(adapters: List[int], to_drop: List[int]) -> bool:
     return True
 
 
-def count_distinct_adapter_chains(adapters: List[int]) -> int:
+def count_distinct_adapter_chains(adapters: list[int]) -> int:
     ways_to_plug_withing_group = []
     for group in droppable_adapters(adapters):
         droppable_configurations = 0

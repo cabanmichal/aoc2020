@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 """--- Day 6: Custom Customs ---
 https://adventofcode.com/2020/day/6"""
-from typing import List
 
 INPUT = "aoc2020_06_input.txt"
 
 
-def count_yes_answered_in_group_by_anyone(group_answers: List[str]) -> int:
+def count_yes_answered_in_group_by_anyone(group_answers: list[str]) -> int:
     return len(set("".join(group_answers)))
 
 
-def count_yes_answered_in_group_by_everyone(group_answers: List[str]) -> int:
+def count_yes_answered_in_group_by_everyone(group_answers: list[str]) -> int:
     return len(set.intersection(*(set(answers) for answers in group_answers)))
 
 
-def load_groups_from_input(input_file: str) -> List[List[str]]:
-    groups: List[List[str]] = []
-    group: List[str] = []
+def load_groups_from_input(input_file: str) -> list[list[str]]:
+    groups: list[list[str]] = []
+    group: list[str] = []
 
     with open(input_file, "rt", encoding="utf-8") as infile:
         for line in infile:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """--- Day 16: Ticket Translation ---
 https://adventofcode.com/2020/day/16"""
+
 import re
 from itertools import chain
 

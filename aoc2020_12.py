@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """--- Day 12: Rain Risk ---
 https://adventofcode.com/2020/day/12"""
-from typing import List, Tuple
 
 INPUT = "aoc2020_12_input.txt"
-T_COORDINATES = Tuple[int, int]
-T_INSTRUCTION = Tuple[str, int]
+T_COORDINATES = tuple[int, int]
+T_INSTRUCTION = tuple[str, int]
 
 
 def rotate_ship(direction: str, value: int, orientation: str) -> str:
@@ -64,8 +63,8 @@ def move(
 
 
 def move_ship_part_1(
-    position: T_COORDINATES, orientation: str, instructions: List[T_INSTRUCTION]
-) -> Tuple[T_COORDINATES, str]:
+    position: T_COORDINATES, orientation: str, instructions: list[T_INSTRUCTION]
+) -> tuple[T_COORDINATES, str]:
     if orientation not in "ENWS":
         raise ValueError(f"Incorrect orientation {orientation!r}")
 
@@ -81,8 +80,8 @@ def move_ship_part_1(
 
 
 def move_ship_part_2(
-    position: T_COORDINATES, instructions: List[T_INSTRUCTION]
-) -> Tuple[T_COORDINATES, T_COORDINATES]:
+    position: T_COORDINATES, instructions: list[T_INSTRUCTION]
+) -> tuple[T_COORDINATES, T_COORDINATES]:
     ship_position = (0, 0)
     waypoint_position = position
     for action, value in instructions:

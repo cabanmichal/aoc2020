@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """--- Day 2: Password Philosophy ---
 https://adventofcode.com/2020/day/2"""
+
 import re
 from dataclasses import dataclass
 from typing import Type, TypeVar

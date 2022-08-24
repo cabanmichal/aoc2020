@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """--- Day 7: Handy Haversacks ---
 https://adventofcode.com/2020/day/7"""
+
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Set, Tuple
 
 INPUT = "aoc2020_07_input.txt"
 _rule_pattern = re.compile(
@@ -18,8 +18,8 @@ _rule_pattern = re.compile(
 @dataclass
 class Bag:
     name: str
-    parents: List["Bag"] = field(default_factory=list)
-    children: List[Tuple["Bag", int]] = field(default_factory=list)
+    parents: list["Bag"] = field(default_factory=list)
+    children: list[tuple["Bag", int]] = field(default_factory=list)
 
     def add_parent(self, bag: "Bag") -> None:
         self.parents.append(bag)
@@ -28,8 +28,8 @@ class Bag:
         self.children.append((bag, amount))
 
 
-def build_graph(rules: List[str]) -> Dict[str, Bag]:
-    graph: Dict[str, Bag] = {}
+def build_graph(rules: list[str]) -> dict[str, Bag]:
+    graph: dict[str, Bag] = {}
     for rule in rules:
         matches = _rule_pattern.finditer(rule)
         bag_name = next(matches).group("bag")
@@ -45,8 +45,8 @@ def build_graph(rules: List[str]) -> Dict[str, Bag]:
     return graph
 
 
-def count_bags_that_can_contain_bag(graph: Dict[str, Bag], bag_name: str) -> int:
-    def traverse(bag: Bag) -> Set[str]:
+def count_bags_that_can_contain_bag(graph: dict[str, Bag], bag_name: str) -> int:
+    def traverse(bag: Bag) -> set[str]:
         bags = {bag.name}
         for parent in bag.parents:
             bags.update(traverse(parent))
@@ -55,7 +55,7 @@ def count_bags_that_can_contain_bag(graph: Dict[str, Bag], bag_name: str) -> int
     return len(traverse(graph[bag_name])) - 1
 
 
-def count_bags_needed(graph: Dict[str, Bag], bag_name: str) -> int:
+def count_bags_needed(graph: dict[str, Bag], bag_name: str) -> int:
     def traverse(bag: Bag) -> int:
         count = 1
         for child, num in bag.children:

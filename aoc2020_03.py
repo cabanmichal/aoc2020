@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """--- Day 3: Toboggan Trajectory ---
 https://adventofcode.com/2020/day/3"""
+
 import math
-from typing import Iterable, Tuple
+from typing import Iterable
 
 INPUT = "aoc2020_03_input.txt"
 TREE = "#"
@@ -15,7 +16,7 @@ def is_tree(x_coordinate: int, tree_row: str) -> bool:
     return tree_row[idx] == TREE
 
 
-def count_trees_in_way(terrain_map_lines: Iterable[str], slope: Tuple[int, int]) -> int:
+def count_trees_in_way(terrain_map_lines: Iterable[str], slope: tuple[int, int]) -> int:
     count = 0
     x_coordinate = 0
     dx, dy = slope

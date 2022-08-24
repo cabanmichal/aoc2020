@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """--- Day 9: Encoding Error ---
 https://adventofcode.com/2020/day/9"""
-from typing import List
 
 from aoc2020_01 import find_n_entries
 
@@ -9,14 +8,14 @@ INPUT = "aoc2020_09_input.txt"
 PREAMBLE = 25
 
 
-def find_error(data: List[int], preamble: int) -> int:
+def find_error(data: list[int], preamble: int) -> int:
     for head, number in enumerate(data[preamble:], start=preamble):
         if not find_n_entries(sorted(data[head - preamble : head]), 2, number):
             return number
     return 0
 
 
-def find_contiguous_set(numbers: List[int], value: int) -> List[int]:
+def find_contiguous_set(numbers: list[int], value: int) -> list[int]:
     start, end = 0, 1
     total = numbers[start]
 

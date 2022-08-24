@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """--- Day 13: Shuttle Search ---
 https://adventofcode.com/2020/day/13"""
+
 import math
-from typing import List, Tuple
 
 INPUT = "aoc2020_13_input.txt"
 
 
-def parse_input_part_1(input_file: str) -> Tuple[int, List[int]]:
+def parse_input_part_1(input_file: str) -> tuple[int, list[int]]:
     with open(input_file, "rt", encoding="utf-8") as infile:
         timestamp, buses, *_ = infile.readlines()
         bus_ids = [int(bus) for bus in buses.split(",") if bus != "x"]
@@ -15,7 +15,7 @@ def parse_input_part_1(input_file: str) -> Tuple[int, List[int]]:
         return int(timestamp), bus_ids
 
 
-def earliest_bus(timestamp: int, buses: List[int]) -> Tuple[int, int]:
+def earliest_bus(timestamp: int, buses: list[int]) -> tuple[int, int]:
     wait_times = []
     for bus in buses:
         if timestamp / bus == 0:
@@ -29,11 +29,11 @@ def earliest_bus(timestamp: int, buses: List[int]) -> Tuple[int, int]:
     return min_wait_time_bus, min_wait_time
 
 
-def parse_input_part_2(input_file: str) -> Tuple[List[int], List[int]]:
+def parse_input_part_2(input_file: str) -> tuple[list[int], list[int]]:
     with open(input_file, "rt", encoding="utf-8") as infile:
         _, instructions, *_ = infile.readlines()
 
-    bus_ids: List[int] = []
+    bus_ids: list[int] = []
     offsets = []
     offset = 1
     for item in instructions.split(","):
@@ -50,7 +50,7 @@ def parse_input_part_2(input_file: str) -> Tuple[List[int], List[int]]:
 
 def find_timestamp(
     base_timestamp: int, first_bus_id: int, second_bus_id: int, offset: int
-) -> Tuple[int, int]:
+) -> tuple[int, int]:
     """Find timestamp in which second bus will be offset ahead from the first bus.
 
     Start at base timestamp.
@@ -62,7 +62,7 @@ def find_timestamp(
         timestamp += first_bus_id
 
 
-def earliest_timestamp(bus_ids: List[int], offsets: List[int]) -> int:
+def earliest_timestamp(bus_ids: list[int], offsets: list[int]) -> int:
     first_bus_id = bus_ids[0]
     base_timestamp = 0
     for second_bus_id, offset in zip(bus_ids[1:], offsets):

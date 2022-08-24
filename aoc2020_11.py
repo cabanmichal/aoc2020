@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """--- Day 11: Seating System ---
 https://adventofcode.com/2020/day/11"""
+
 from collections import Counter
-from typing import Dict, Iterator, List, Literal, Tuple
+from typing import Iterator, Literal
 
 INPUT = "aoc2020_11_input.txt"
 EMPTY = "L"
@@ -11,7 +12,7 @@ FLOOR = "."
 
 
 class WaitingArea:
-    def __init__(self, seat_layout: List[List[str]]) -> None:
+    def __init__(self, seat_layout: list[list[str]]) -> None:
         self.seat_layout = seat_layout
         self.width = len(seat_layout[0])
         self.height = len(self.seat_layout)
@@ -52,7 +53,7 @@ class WaitingArea:
                     counter += 1
         return counter
 
-    def _adjacent_coordinates(self, row: int, column: int) -> Iterator[Tuple[int, int]]:
+    def _adjacent_coordinates(self, row: int, column: int) -> Iterator[tuple[int, int]]:
         for dr in range(-1, 2):
             for dc in range(-1, 2):
                 if dr == 0 and dc == 0:
@@ -62,14 +63,14 @@ class WaitingArea:
                 if 0 <= r < self.height and 0 <= c < self.width:
                     yield r, c
 
-    def _adjacent_counter(self, row: int, column: int) -> Dict[str, int]:
+    def _adjacent_counter(self, row: int, column: int) -> dict[str, int]:
         return Counter(
             self.seat_layout[r][c] for r, c in self._adjacent_coordinates(row, column)
         )
 
     def _visible_coordinates(
-        self, row: int, column: int, direction: Tuple[int, int]
-    ) -> Iterator[Tuple[int, int]]:
+        self, row: int, column: int, direction: tuple[int, int]
+    ) -> Iterator[tuple[int, int]]:
         dr, dc = direction
         while True:
             row += dr
@@ -79,8 +80,8 @@ class WaitingArea:
             else:
                 return
 
-    def _visible_counter(self, row: int, column: int) -> Dict[str, int]:
-        counter: Dict[str, int] = Counter()
+    def _visible_counter(self, row: int, column: int) -> dict[str, int]:
+        counter: dict[str, int] = Counter()
         for direction in [
             (0, -1),
             (1, -1),
@@ -101,7 +102,7 @@ class WaitingArea:
         return "\n" + "\n".join("".join(row) for row in self.seat_layout) + "\n"
 
 
-def occupied_seats_method_1(seat_layout: List[List[str]]) -> int:
+def occupied_seats_method_1(seat_layout: list[list[str]]) -> int:
     waiting_area = WaitingArea(seat_layout)
     seats_changed = waiting_area.make_round("adjacent", tolerance=4)
     while seats_changed:
@@ -109,7 +110,7 @@ def occupied_seats_method_1(seat_layout: List[List[str]]) -> int:
     return waiting_area.occupied_seats
 
 
-def occupied_seats_method_2(seat_layout: List[List[str]]) -> int:
+def occupied_seats_method_2(seat_layout: list[list[str]]) -> int:
     waiting_area = WaitingArea(seat_layout)
     seats_changed = waiting_area.make_round("visible", tolerance=5)
     while seats_changed:

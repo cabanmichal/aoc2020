@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """--- Day 4: Passport Processing ---
 https://adventofcode.com/2020/day/4"""
+
 import re
-from typing import Dict, List
 
 INPUT = "aoc2020_04_input.txt"
 PASSPORT_FIELDS = {
@@ -18,7 +18,7 @@ PASSPORT_FIELDS = {
 OPTIONAL_FIELD = "cid"
 
 
-def is_valid_passport(document: Dict[str, str]) -> bool:
+def is_valid_passport(document: dict[str, str]) -> bool:
     diff = PASSPORT_FIELDS.keys() - document.keys()
     return not diff or len(diff) == 1 and OPTIONAL_FIELD in diff
 
@@ -66,7 +66,7 @@ def pid_valid(pid: str) -> bool:
     return len(pid) == 9 and pid.isnumeric()
 
 
-def is_valid_passport_strict(document: Dict[str, str]) -> bool:
+def is_valid_passport_strict(document: dict[str, str]) -> bool:
     return (
         is_valid_passport(document)
         and byr_valid(document["byr"])
@@ -79,9 +79,9 @@ def is_valid_passport_strict(document: Dict[str, str]) -> bool:
     )
 
 
-def parse_input(file_name: str) -> List[Dict[str, str]]:
+def parse_input(file_name: str) -> list[dict[str, str]]:
     documents = []
-    document: Dict[str, str] = {}
+    document: dict[str, str] = {}
 
     with open(file_name, "rt", encoding="utf-8") as infile:
         for line in infile:

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """--- Day 5: Binary Boarding ---
 https://adventofcode.com/2020/day/5"""
-from typing import List
 
 INPUT = "aoc2020_05_input.txt"
 
@@ -37,7 +36,7 @@ def seat_id_from_navigation(navigation: str) -> int:
     return get_seat_id(find_row(navigation[:7]), find_column(navigation[7:]))
 
 
-def find_seat_id(seat_ids: List[int]) -> int:
+def find_seat_id(seat_ids: list[int]) -> int:
     sorted_ids = sorted(seat_ids)
     for idx, seat_id in enumerate(sorted_ids[:-1]):
         if sorted_ids[idx + 1] - seat_id == 2:

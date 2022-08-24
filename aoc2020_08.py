@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """--- Day 8: Handheld Halting ---
 https://adventofcode.com/2020/day/8"""
+
 from dataclasses import dataclass
-from typing import List
 
 INPUT = "aoc2020_08_input.txt"
 
@@ -15,8 +15,8 @@ class Instruction:
 
 class Program:
     def __init__(self) -> None:
-        self.instructions: List[Instruction] = []
-        self.counter: List[int] = []
+        self.instructions: list[Instruction] = []
+        self.counter: list[int] = []
         self.pointer = 0
         self.accumulator = 0
         self.has_error = False

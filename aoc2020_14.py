@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """--- Day 14: Docking Data ---
 https://adventofcode.com/2020/day/14"""
+
 import itertools
 import re
-from typing import Dict, List, NamedTuple, cast
+from typing import NamedTuple, cast
 
 INPUT = "aoc2020_14_input.txt"
 
@@ -25,8 +26,8 @@ class Program:
     )
 
     def __init__(self) -> None:
-        self._instructions: List[Instruction] = []
-        self._memory: Dict[int, int] = {}
+        self._instructions: list[Instruction] = []
+        self._memory: dict[int, int] = {}
         self._mask: str = ""
         self._width = 36
 
@@ -85,7 +86,7 @@ class Program:
             else:
                 raise ValueError(f"Incorrect instruction: {instruction!r}")
 
-    def apply_mask_version_2(self, address: int) -> List[int]:
+    def apply_mask_version_2(self, address: int) -> list[int]:
         bits = []
         floating_bits = []
         for idx, (mask, bit) in enumerate(
@@ -100,7 +101,7 @@ class Program:
                 bits.append(bit)
 
         combinations = itertools.product("01", repeat=len(floating_bits))
-        addresses: List[int] = []
+        addresses: list[int] = []
         for combination in combinations:
             for bit_idx, bit_value in zip(floating_bits, combination):
                 bits[bit_idx] = bit_value
@@ -108,7 +109,7 @@ class Program:
 
         return addresses
 
-    def dump_memory(self) -> Dict[int, int]:
+    def dump_memory(self) -> dict[int, int]:
         return self._memory.copy()
 
 
