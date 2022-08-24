@@ -96,7 +96,7 @@ def fields_in_order(tickets: list[list[int]], rules: T_RULES) -> list[str]:
     return [field.pop() for field in ordered_fields]
 
 
-def departure_fields_product(ticket: list[int], fields: list[str]) -> int:
+def product_of_departure_fields(ticket: list[int], fields: list[str]) -> int:
     product = 1
     for value, field in zip(ticket, fields):
         if field.startswith("departure"):
@@ -114,7 +114,7 @@ def main() -> None:
     answer = sum_of_invalid_values(other_tickets, rules)
     print(f"Ticket scanning error rate: {answer}")  # 25895
 
-    answer = departure_fields_product(
+    answer = product_of_departure_fields(
         my_tickets[0], fields_in_order(my_tickets + other_tickets, rules)
     )
     print(f"Product of departure fields: {answer}")  # 5865723727753
