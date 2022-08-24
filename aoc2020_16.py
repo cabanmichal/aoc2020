@@ -79,19 +79,21 @@ def fields_in_order(tickets: list[list[int]], rules: T_RULES) -> list[str]:
                 for start, end in ranges:
                     if start <= value <= end:
                         possible_fields.add(field)
+                        break
             ordered_fields[idx].intersection_update(possible_fields)
 
     while all_fields:
         for i, fields in enumerate(ordered_fields):
-            if len(fields) == 1:
-                field, *_ = fields
-                if field not in all_fields:
-                    continue
-                all_fields.discard(field)
+            if len(fields) != 1:
+                continue
+            field, *_ = fields
+            if field not in all_fields:
+                continue
+            all_fields.discard(field)
 
-                for j, fields in enumerate(ordered_fields):
-                    if i != j:
-                        fields.discard(field)
+            for j, fields in enumerate(ordered_fields):
+                if i != j:
+                    fields.discard(field)
 
     return [field.pop() for field in ordered_fields]
 
