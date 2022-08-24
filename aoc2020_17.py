@@ -4,13 +4,12 @@ https://adventofcode.com/2020/day/17"""
 
 INPUT = "aoc2020_17_input.txt"
 ACTIVE = "#"
-INACTIVE = "."
+T_SQUARE = tuple[int, int]
 T_CUBE = tuple[int, int, int]
 
 
-def load_input(input_file: str) -> tuple[set[T_CUBE], tuple[int, int]]:
+def load_input(input_file: str) -> tuple[set[T_SQUARE], tuple[int, int]]:
     active_cubes = set()
-    z = 0
     size = 0
     with open(input_file, "rt", encoding="utf-8") as infile:
         for y, line in enumerate(infile):
@@ -18,8 +17,12 @@ def load_input(input_file: str) -> tuple[set[T_CUBE], tuple[int, int]]:
             size = len(line)
             for x, cube in enumerate(line):
                 if cube == ACTIVE:
-                    active_cubes.add((x, y, z))
+                    active_cubes.add((x, y))
     return active_cubes, (0, size)
+
+
+def format_squares_as_cubes(squares: set[T_SQUARE]) -> set[T_CUBE]:
+    return {(x, y, 0) for x, y in squares}
 
 
 def adjacent_cubes(cube: T_CUBE) -> set[T_CUBE]:
@@ -35,11 +38,14 @@ def adjacent_cubes(cube: T_CUBE) -> set[T_CUBE]:
     return cubes
 
 
-def cycle(active_cubes: set[T_CUBE], range_: tuple[int, int]) -> set[T_CUBE]:
+def cycle_cubes(active_cubes: set[T_CUBE], range_: tuple[int, int]) -> set[T_CUBE]:
     new_active_cubes = set()
-    for x in range(*range_):
-        for y in range(*range_):
-            for z in range(*range_):
+    start, end = range_
+    start -= 1
+    end += 1
+    for x in range(start, end):
+        for y in range(start, end):
+            for z in range(start, end):
                 cube = (x, y, z)
                 active_neighbours = active_cubes & adjacent_cubes(cube)
                 if cube in active_cubes:
@@ -50,20 +56,21 @@ def cycle(active_cubes: set[T_CUBE], range_: tuple[int, int]) -> set[T_CUBE]:
     return new_active_cubes
 
 
-def cycle_n_times(
+def cycle_cubes_n_times(
     active_cubes: set[T_CUBE], range_: tuple[int, int], n: int
 ) -> set[T_CUBE]:
     start, end = range_
     for _ in range(n):
-        active_cubes = cycle(active_cubes, (start, end))
+        active_cubes = cycle_cubes(active_cubes, (start, end))
         start -= 1
         end += 1
     return active_cubes
 
 
 def main() -> None:
-    print(cycle_n_times(*load_input(INPUT), 6))
-    print(adjacent_cubes((1, 2, 3)))
+    squares, range_ = load_input(INPUT)
+    active_cubes = len(cycle_cubes_n_times(format_squares_as_cubes(squares), range_, 6))
+    print(f"Active cubes after 6th cycle: {active_cubes}")  # 319
 
 
 if __name__ == "__main__":
