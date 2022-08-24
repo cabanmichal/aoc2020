@@ -2,6 +2,8 @@
 """--- Day 17: Conway Cubes ---
 https://adventofcode.com/2020/day/17"""
 
+import itertools
+
 INPUT = "aoc2020_17_input.txt"
 ACTIVE = "#"
 T_SQUARE = tuple[int, int]
@@ -29,12 +31,10 @@ def adjacent_cubes(cube: T_CUBE) -> set[T_CUBE]:
     cubes = set()
     differences = (-1, 0, 1)
     x, y, z = cube
-    for dx in differences:
-        for dy in differences:
-            for dz in differences:
-                if dx == 0 and dy == 0 and dz == 0:
-                    continue
-                cubes.add((x + dx, y + dy, z + dz))
+    for dx, dy, dz in itertools.product(differences, repeat=3):
+        if dx == 0 and dy == 0 and dz == 0:
+            continue
+        cubes.add((x + dx, y + dy, z + dz))
     return cubes
 
 
@@ -43,16 +43,14 @@ def cycle_cubes(active_cubes: set[T_CUBE], range_: tuple[int, int]) -> set[T_CUB
     start, end = range_
     start -= 1
     end += 1
-    for x in range(start, end):
-        for y in range(start, end):
-            for z in range(start, end):
-                cube = (x, y, z)
-                active_neighbours = active_cubes & adjacent_cubes(cube)
-                if cube in active_cubes:
-                    if 2 <= len(active_neighbours) <= 3:
-                        new_active_cubes.add(cube)
-                elif len(active_neighbours) == 3:
-                    new_active_cubes.add(cube)
+    for x, y, z in itertools.product(range(start, end), repeat=3):
+        cube = (x, y, z)
+        active_neighbours = active_cubes & adjacent_cubes(cube)
+        if cube in active_cubes:
+            if 2 <= len(active_neighbours) <= 3:
+                new_active_cubes.add(cube)
+        elif len(active_neighbours) == 3:
+            new_active_cubes.add(cube)
     return new_active_cubes
 
 
