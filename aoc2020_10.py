@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/10"""
+"""--- Day 10: Adapter Array ---
+https://adventofcode.com/2020/day/10"""
 import itertools
 import math
 from collections import defaultdict

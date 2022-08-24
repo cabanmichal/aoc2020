@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/7"""
+"""--- Day 7: Handy Haversacks ---
+https://adventofcode.com/2020/day/7"""
 import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Set, Tuple

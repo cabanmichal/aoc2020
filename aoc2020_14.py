@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/14"""
+"""--- Day 14: Docking Data ---
+https://adventofcode.com/2020/day/14"""
 import itertools
 import re
 from typing import Dict, List, NamedTuple, cast

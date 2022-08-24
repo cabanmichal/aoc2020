@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/6"""
+"""--- Day 6: Custom Customs ---
+https://adventofcode.com/2020/day/6"""
 from typing import List
 
 INPUT = "aoc2020_06_input.txt"

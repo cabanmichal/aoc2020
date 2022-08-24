@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/12"""
+"""--- Day 12: Rain Risk ---
+https://adventofcode.com/2020/day/12"""
 from typing import List, Tuple
 
 INPUT = "aoc2020_12_input.txt"

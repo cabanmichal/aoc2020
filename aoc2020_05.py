@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/5"""
+"""--- Day 5: Binary Boarding ---
+https://adventofcode.com/2020/day/5"""
 from typing import List
 
 INPUT = "aoc2020_05_input.txt"

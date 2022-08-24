@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""https://adventofcode.com/2020/day/8"""
+"""--- Day 8: Handheld Halting ---
+https://adventofcode.com/2020/day/8"""
 from dataclasses import dataclass
 from typing import List
 
