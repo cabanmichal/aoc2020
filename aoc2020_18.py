@@ -24,10 +24,10 @@ def process_right_value(
 
 
 def evaluate_no_precedence(tokens: list[str]) -> int:
-    value = None
     operator = None
-
+    value = None
     index = 0
+
     while index < len(tokens):
         token = tokens[index]
 
