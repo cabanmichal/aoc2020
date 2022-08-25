@@ -32,13 +32,12 @@ def adjacent_cubes(cube: T_CUBE, dimension: int) -> set[T_CUBE]:
     cubes: set[tuple[int, ...]] = set()
     differences = (-1, 0, 1)
     for coordinate_differences in itertools.product(differences, repeat=dimension):
-        if not any(coordinate_differences):  # all 0s => the cube itself
-            continue
         adjacent_cube = tuple(
             coordinate + difference
             for coordinate, difference in zip(cube, coordinate_differences)
         )
         cubes.add(adjacent_cube)
+    cubes.remove(cube)
 
     return cubes
 
