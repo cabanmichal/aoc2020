@@ -28,10 +28,10 @@ def format_squares_as_cubes(squares: set[T_SQUARE], dimension: int) -> set[T_CUB
     return {(x, y, *(0,) * (dimension - 2)) for x, y in squares}
 
 
-def adjacent_cubes(cube: T_CUBE, dimension: int) -> set[T_CUBE]:
+def adjacent_cubes(cube: T_CUBE) -> set[T_CUBE]:
     cubes: set[tuple[int, ...]] = set()
     differences = (-1, 0, 1)
-    for coordinate_differences in itertools.product(differences, repeat=dimension):
+    for coordinate_differences in itertools.product(differences, repeat=len(cube)):
         adjacent_cube = tuple(
             coordinate + difference
             for coordinate, difference in zip(cube, coordinate_differences)
@@ -49,7 +49,7 @@ def cycle_cubes(
     start, end = range_
 
     for cube in itertools.product(range(start, end), repeat=dimension):
-        active_neighbours = active_cubes & adjacent_cubes(cube, dimension)
+        active_neighbours = active_cubes & adjacent_cubes(cube)
         if cube in active_cubes:
             if 2 <= len(active_neighbours) <= 3:
                 new_active_cubes.add(cube)
