@@ -76,12 +76,12 @@ def main() -> None:
     active_cubes = len(
         cycle_cubes_n_times(format_squares_as_cubes(squares, 3), range_, 6, 3)
     )
-    print(f"Active cubes after 6th cycle: {active_cubes}")  # 319
+    print(f"Active cubes after 6th cycle (3d): {active_cubes}")  # 319
 
     active_cubes = len(
         cycle_cubes_n_times(format_squares_as_cubes(squares, 4), range_, 6, 4)
     )
-    print(f"Active cubes after 6th cycle: {active_cubes}")  # 2324
+    print(f"Active cubes after 6th cycle (4d): {active_cubes}")  # 2324
 
 
 if __name__ == "__main__":
