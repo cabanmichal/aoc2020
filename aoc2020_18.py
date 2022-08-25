@@ -62,10 +62,7 @@ def evaluate(expression: str) -> int:
 
 
 def sum_of_expressions(expressions: list[str]) -> int:
-    total = 0
-    for expression in expressions:
-        total += evaluate(expression)
-    return total
+    return sum(evaluate(expression) for expression in expressions)
 
 
 def main() -> None:
