@@ -71,9 +71,9 @@ def evaluate_no_precedence(tokens: list[str]) -> int:
     return value
 
 
-def process_value_precedence(
+def process_value_with_precedence(
     left_value: int | None,
-    current_operator: str | None,
+    operator: str | None,
     right_value: int,
     precedence_operator: str,
 ) -> tuple[int, list[str]]:
@@ -81,18 +81,18 @@ def process_value_precedence(
     if left_value is None:
         return right_value, tokens
 
-    if current_operator is None:
-        raise ValueError(f"Unknown operator: {current_operator!r}")
+    if operator is None:
+        raise ValueError(f"Unknown operator: {operator!r}")
 
-    if current_operator == precedence_operator:
+    if operator == precedence_operator:
         if precedence_operator == "+":
             return left_value + right_value, tokens
         if precedence_operator == "*":
             return left_value * right_value, tokens
-        raise ValueError(f"Unknown operator: {current_operator!r}")
+        raise ValueError(f"Unknown operator: {operator!r}")
     else:
         tokens.append(str(left_value))
-        tokens.append(current_operator)
+        tokens.append(operator)
         return right_value, tokens
 
 
@@ -106,17 +106,17 @@ def evaluate_with_precedence(tokens: list[str], operators: list[str]) -> int:
         while index < len(tokens):
             token = tokens[index]
 
-            if token.isdecimal():
-                value, processed_tokens = process_value_precedence(
+            if token in operators:
+                current_operator = token
+            elif token.isdecimal():
+                value, processed_tokens = process_value_with_precedence(
                     value, current_operator, int(token), precedence_operator
                 )
                 new_tokens.extend(processed_tokens)
-            elif token in operators:
-                current_operator = token
             elif token == "(":
                 start = index + 1
                 index = find_group_end(tokens, index)
-                value, processed_tokens = process_value_precedence(
+                value, processed_tokens = process_value_with_precedence(
                     value,
                     current_operator,
                     evaluate_with_precedence(tokens[start:index], operators),
@@ -132,25 +132,25 @@ def evaluate_with_precedence(tokens: list[str], operators: list[str]) -> int:
     return int(tokens.pop())
 
 
-def evaluate(expression: str, with_precedence: bool) -> int:
+def evaluate(expression: str, precedence: None | list[str]) -> int:
     tokens = tokenize(expression)
-    if with_precedence:
-        return evaluate_with_precedence(tokens, list("+*"))
+    if precedence:
+        return evaluate_with_precedence(tokens, precedence)
     return evaluate_no_precedence(tokens)
 
 
-def sum_of_expressions(expressions: list[str], with_precedence: bool) -> int:
-    return sum(evaluate(expression, with_precedence) for expression in expressions)
+def sum_of_expressions(expressions: list[str], precedence: None | list[str]) -> int:
+    return sum(evaluate(expression, precedence) for expression in expressions)
 
 
 def main() -> None:
     with open(INPUT, "rt", encoding="utf-8") as infile:
         expressions = [line.strip() for line in infile]
 
-    answer = sum_of_expressions(expressions, with_precedence=False)
+    answer = sum_of_expressions(expressions, precedence=None)
     print(f"Sum with no precedence: {answer}")  # 16332191652452
 
-    answer = sum_of_expressions(expressions, with_precedence=True)
+    answer = sum_of_expressions(expressions, precedence=list("+*"))
     print(f"Sum with addition precedence: {answer}")  # 351175492232654
 
 
