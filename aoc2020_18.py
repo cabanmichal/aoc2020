@@ -5,6 +5,10 @@ https://adventofcode.com/2020/day/18"""
 INPUT = "aoc2020_18_input.txt"
 
 
+def tokenize(expression: str) -> list[str]:
+    return [token for token in expression if token != " "]
+
+
 def process_right_value(
     right_value: int, operator: str | None, left_value: int | None
 ) -> tuple[str | None, int]:
@@ -58,7 +62,7 @@ def evaluate_no_precedence(tokens: list[str]) -> int:
 
 
 def evaluate(expression: str) -> int:
-    return evaluate_no_precedence([token for token in expression if token != " "])
+    return evaluate_no_precedence(tokenize(expression))
 
 
 def sum_of_expressions(expressions: list[str]) -> int:
@@ -67,7 +71,7 @@ def sum_of_expressions(expressions: list[str]) -> int:
 
 def main() -> None:
     with open(INPUT, "rt", encoding="utf-8") as infile:
-        expressions = infile.readlines()
+        expressions = [line.strip() for line in infile]
 
     print(f"Sum part 1: {sum_of_expressions(expressions)}")  # 16332191652452
 
