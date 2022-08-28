@@ -2,7 +2,7 @@
 """--- Day 19: Monster Messages ---
 https://adventofcode.com/2020/day/19"""
 
-import itertools
+import re
 from dataclasses import dataclass, field
 
 INPUT = "aoc2020_19_input.txt"
@@ -13,14 +13,18 @@ class Rule:
     name: str
     subrules: list[list["Rule"]] = field(default_factory=list)
 
-    def expand(self) -> list[str]:
-        expanded = []
+    def expand(self) -> str:
         if not self.subrules:
-            return [self.name]
+            return self.name
+
+        expanded = []
         for group in self.subrules:
-            for item in itertools.product(*(rule.expand() for rule in group)):
-                expanded.append("".join(item))
-        return expanded
+            expanded_group = []
+            for item in (rule.expand() for rule in group):
+                expanded_group.append("".join(item))
+            expanded.append(f"{''.join(expanded_group)}")
+
+        return "(" + "|".join(expanded) + ")"
 
 
 def parse_rules(unparsed_rules: list[str]) -> dict[str, Rule]:
@@ -45,7 +49,7 @@ def parse_rules(unparsed_rules: list[str]) -> dict[str, Rule]:
     return parsed
 
 
-def expand_rules(parsed_rules: dict[str, Rule]) -> dict[int, list[str]]:
+def expand_rules(parsed_rules: dict[str, Rule]) -> dict[int, str]:
     expanded = {}
     for rule in parsed_rules.values():
         if rule.subrules:
@@ -54,7 +58,7 @@ def expand_rules(parsed_rules: dict[str, Rule]) -> dict[int, list[str]]:
     return expanded
 
 
-def load_input(input_file: str) -> tuple[dict[int, list[str]], list[str]]:
+def load_input(input_file: str) -> tuple[dict[int, str], list[str]]:
     with open(input_file, "rt", encoding="utf-8") as infile:
         rules_part, messages_part = infile.read().strip().split("\n\n")
 
@@ -63,10 +67,11 @@ def load_input(input_file: str) -> tuple[dict[int, list[str]], list[str]]:
     return rules, messages_part.splitlines(keepends=False)
 
 
-def count_matching_messages(messages: list[str], rules: list[str]) -> int:
+def count_matching_messages(messages: list[str], rules: str) -> int:
+    pattern = re.compile(rules)
     count = 0
     for message in messages:
-        if message in rules:
+        if pattern.fullmatch(message) is not None:
             count += 1
     return count
 
